@@ -24,7 +24,16 @@
             </b-form-valid-feedback>
           </b-form>
 
-          <b-form style="margin-top:20px">
+          <b-form class="mt-4">
+            <label for="phone">Provider</label>
+            <b-input
+              v-model="provider"
+              id="provider"
+              disabled
+            ></b-input>
+          </b-form>
+
+          <b-form class="mt-4">
             <label for="message">Message</label>
             <b-form-textarea
               id="message"
@@ -63,9 +72,15 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
+      telkomsel: [11, 12, 13, 21, 22, 23, 51, 52],
+      indosat: [14, 15, 16, 55, 56, 57, 58],
+      xl: [17, 18, 19, 59, 77, 78],
+      tri: [96, 97, 98, 99],
       phone: '',
       message: '',
-      isLoading: false
+      provider: '',
+      isLoading: false,
+      isProvider: null
     }
   },
   methods: {
@@ -73,7 +88,7 @@ export default {
       this.isLoading = true
       const issued = new Date()
       const status = 'PROCESS'
-      const provider = null
+      const provider = this.provider
       const sent = null
       const number = this.phone
       const message = this.message
@@ -94,6 +109,50 @@ export default {
     },
     messageValidation () {
       return this.message.length >= 10
+    }
+  },
+  watch: {
+    phone: {
+      handler: function (val) {
+        var isZero = val.slice(0, 1)
+        if (isZero != 0) {
+          this.isProvider = val.slice(1, 3)
+        } else {
+          this.isProvider = val.slice(2, 4)
+        }
+
+        for(var i = 0; i < this.telkomsel.length; i++) {
+          if (this.telkomsel[i] == this.isProvider) {
+            this.provider = 'TELKOMSEL'
+          }
+        }
+
+        for (var i = 0; i < this.indosat.length; i++) {
+          if (this.indosat[i] == this.isProvider) {
+            this.provider = 'INDOSAT'
+          }
+        }
+
+        for (var i = 0; i < this.xl.length; i++) {
+          if (this.xl[i] == this.isProvider) {
+            this.provider = 'XL'
+          }
+        }
+
+        for (var i = 0; i < this.tri.length; i++) {
+          if (this.tri[i] == this.isProvider) {
+            this.provider = 'TRI'
+          }
+        }
+
+        // if (this.telkomsel.includes(this.isProvider)) this.provider = 'TELKOMSEL'
+        // if (this.indosat.includes(this.isProvider)) this.provider = 'INDOSAT'
+        // if (this.xl.includes(this.isProvider)) this.provider = 'XL'
+        // if (this.tri.includes(this.isProvider)) this.provider = 'TRI'
+
+        console.log(this.isProvider)
+        console.log(this.provider)
+      }
     }
   }
 }
