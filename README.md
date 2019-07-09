@@ -2,6 +2,17 @@
 
 > smsgate-publisher for save data on firestore and send sms from sender (android)
 
+## Project Setup
+
+``` bash
+# rename conf.js.example to conf.js
+cp conf.js.example conf.js
+
+# add your firebase config
+get from https://console.firebase.google.com
+
+```
+
 ## Build Setup
 
 ``` bash
@@ -17,5 +28,3 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
